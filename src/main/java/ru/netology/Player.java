@@ -3,26 +3,33 @@ package ru.netology;
 import java.util.HashMap;
 import java.util.Map;
 
+// БЕЗ ФИКСА
+
 public class Player {
     private String name;
+    public String getName() {
+        return name;
+    }
+
 
     /** информация о том, в какую игру сколько часов было сыграно
     ключ - игра
     значение - суммарное количество часов игры в эту игру */
-    private Map<Game, Integer> playedTime = new HashMap<>();
+    private Map<Game, Integer> playedTimeByPlayer = new HashMap<>();
+    public Map<Game, Integer> getPlayedTimeByPlayer() {
+        return playedTimeByPlayer;
+    }
 
     public Player(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
+
 
     /** добавление игры игроку
     если игра уже была, никаких изменений происходить не должно */
     public void installGame(Game game) {
-        playedTime.put(game, 0);
+        playedTimeByPlayer.put(game, 0);
     }
 
     /** игрок играет в игру game на протяжении hours часов
@@ -32,21 +39,21 @@ public class Player {
     если игра не была установлена, то надо выкидывать RuntimeException */
     public int play(Game game, int hours) {
         game.getStore().addPlayTime(name, hours);
-        if (playedTime.containsKey(game)) {
-            playedTime.put(game, playedTime.get(game));
+        if (playedTimeByPlayer.containsKey(game)) {
+            playedTimeByPlayer.put(game, playedTimeByPlayer.get(game));
         } else {
-            playedTime.put(game, hours);
+            playedTimeByPlayer.put(game, hours);
         }
-        return playedTime.get(game);
+        return playedTimeByPlayer.get(game);
     }
 
     /** Метод принимает жанр игры (одно из полей объекта игры) и
      суммирует время, проигранное во все игры этого жанра этим игроком */
     public int sumGenre(String genre) {
         int sum = 0;
-        for (Game game : playedTime.keySet()) {
+        for (Game game : playedTimeByPlayer.keySet()) {
             if (game.getGenre().equals(genre)) {
-                sum += playedTime.get(game);
+                sum += playedTimeByPlayer.get(game);
             } else {
                 sum = 0;
             }

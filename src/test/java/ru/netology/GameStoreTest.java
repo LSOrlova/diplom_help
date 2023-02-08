@@ -3,6 +3,7 @@ package ru.netology;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+//НЕ ПОФИКСИЛА ЕЩЕ !!!!!!!!!! НА РАБОТЕ 08.02.2023
 public class GameStoreTest {
 
     @Test
