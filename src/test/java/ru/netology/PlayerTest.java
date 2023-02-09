@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-//  БЕЗ ФИКСА
-
 public class PlayerTest {
 
 //    @Test
@@ -23,31 +21,28 @@ public class PlayerTest {
 //        assertEquals(expected, actual);
 //    }
 
-//    @Test
-//    public void shouldInstallGame() {
-//        GameStore store = new GameStore();
-//        Player player = new Player("Petya");
-//        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
-//        Game game1 = store.publishGame("Нетология Баттл Онлайн", "Аркады");
-//
-//        int expected = 0;
-//        int actual = store.getPlayedTimeByPlayer.put(game, 0);
-//        ;
-//        assertEquals(expected, actual);
-//    }
-//
-//    @Test
-//    public void shouldPlayReturnRunTimeException() {
-//        GameStore store = new GameStore();
-//        Player player = new Player("Petya");
-//
-//
-//        Assertions.assertThrows(RuntimeException.class, () -> {
-//            playedTimeByPlayer.get(game);
-//        });
-//    }
-//
-//
+    @Test
+    public void shouldInstallGame() {
+        GameStore store = new GameStore();
+
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+        Player player = new Player();
+
+        Game expected = game;
+        Game actual = player.installGame(game);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldPlayReturnRunTimeException() {
+        GameStore store = new GameStore();
+        Player player = new Player();
+
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            store.addPlayTime("Petya", 5);
+        });
+    }
+
 //    @Test
 //    public void shouldPlay() {
 //        GameStore store = new GameStore();
@@ -56,7 +51,7 @@ public class PlayerTest {
 //        game1.getStore().addPlayTime(game, 10);
 //
 //        int expected = 10;
-//        int actual = playedTimeByPlayer.put(game1, playedTimeByPlayer.get(game1));
+//        int actual = playedTime.put(game1, playedTime.get(game1));
 //        assertEquals(expected, actual);
 //    }
 //

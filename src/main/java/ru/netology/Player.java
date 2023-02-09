@@ -11,37 +11,49 @@ public class Player {
     /** информация о том, в какую игру сколько часов было сыграно
     ключ - игра
     значение - суммарное количество часов игры в эту игру */
-    private Map<Game, Integer> playedTimeByPlayer = new HashMap<>();
+    private Map<Game, Integer> playedTime = new HashMap<>();
 
 
-    /** добавление игры игроку
-    если игра уже была, никаких изменений происходить не должно */
-    public void installGame(Game game) {
-        playedTimeByPlayer.put(game, 0);
+    /**
+     * добавление игры игроку
+     * если игра уже была, никаких изменений происходить не должно
+     *
+     * @return
+     */
+    public Game installGame(Game game) {
+        if (!playedTime.containsKey(game)) {
+            playedTime.put(game, 0);
+        }
+        return game;
     }
 
-    /** игрок играет в игру game на протяжении hours часов
-    об этом нужно сообщить объекту-каталогу игр, откуда была установлена игра
-    также надо обновить значения в мапе игрока, добавив проигранное количество часов
-    возвращает суммарное количество часов, проигранное в эту игру.
-    если игра не была установлена, то надо выкидывать RuntimeException */
+    /**
+     * игрок играет в игру game на протяжении hours часов
+     * об этом нужно сообщить объекту-каталогу игр, откуда была установлена игра
+     * также надо обновить значения в мапе игрока, добавив проигранное количество часов
+     * возвращает суммарное количество часов, проигранное в эту игру.
+     * если игра не была установлена, то надо выкидывать RuntimeException
+     *
+     * @return
+     */
     public int play(Game game, int hours) {
         game.getStore().addPlayTime(name, hours);
-        if (playedTimeByPlayer.containsKey(game)) {
-            playedTimeByPlayer.put(game, playedTimeByPlayer.get(game));
+        if (playedTime.containsKey(game)) {
+            playedTime.put(game, playedTime.get(game));
         } else {
-            playedTimeByPlayer.put(game, hours);
+            RuntimeException e = new RuntimeException("Игра не была  установлена " + game);
+            throw e;
         }
-        return playedTimeByPlayer.get(game);
+        return hours;
     }
 
     /** Метод принимает жанр игры (одно из полей объекта игры) и
      суммирует время, проигранное во все игры этого жанра этим игроком */
     public int sumGenre(String genre) {
         int sum = 0;
-        for (Game game : playedTimeByPlayer.keySet()) {
+        for (Game game : playedTime.keySet()) {
             if (game.getGenre().equals(genre)) {
-                sum += playedTimeByPlayer.get(game);
+                sum += playedTime.get(game);
             } else {
                 sum = 0;
             }
