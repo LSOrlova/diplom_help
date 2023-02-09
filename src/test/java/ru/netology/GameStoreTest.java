@@ -20,8 +20,8 @@ public class GameStoreTest {
         GameStore store = new GameStore();
         Game game1 = store.publishGame("Покер", "Карточные");
 
-        int expected = 1;
-        int actual = store.getGames().size();
+        boolean expected = true;
+        boolean actual = store.containsGame(game1);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -53,10 +53,9 @@ public class GameStoreTest {
     public void shouldAddPlayerPlayTime() {
         GameStore store = new GameStore();
         Game game1 = store.publishGame("Покер", "Карточные");
-        store.addPlayTime("Kolya", 2);
 
-        Integer expected = 2;
-        Integer actual = store.getPlayedTime().get("Kolya");
+        int expected = 2;
+        int actual = store.addPlayTime("Kolya", 2);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -70,8 +69,8 @@ public class GameStoreTest {
         store.addPlayTime("Kolya", 2);
         store.addPlayTime("Kolya", 2);
 
-        Integer expected = (4);
-        Integer actual = store.getPlayedTime().get("Kolya");
+        int expected = (6);
+        int actual = store.addPlayTime("Kolya", 2);
         Assertions.assertEquals(expected, actual);
     }
 
