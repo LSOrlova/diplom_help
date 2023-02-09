@@ -59,7 +59,7 @@ public class GameStore {
         } else {
             playedTime.put(playerName, hours);
         }
-        return hours;
+        return playedTime.get(playerName);
     }
 
     /**

@@ -7,23 +7,11 @@ import java.util.Map;
 
 public class Player {
     private String name;
-    public String getName() {
-        return name;
-    }
-
 
     /** информация о том, в какую игру сколько часов было сыграно
     ключ - игра
     значение - суммарное количество часов игры в эту игру */
     private Map<Game, Integer> playedTimeByPlayer = new HashMap<>();
-    public Map<Game, Integer> getPlayedTimeByPlayer() {
-        return playedTimeByPlayer;
-    }
-
-    public Player(String name) {
-        this.name = name;
-    }
-
 
 
     /** добавление игры игроку
