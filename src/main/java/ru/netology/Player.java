@@ -8,9 +8,15 @@ import java.util.Map;
 public class Player {
     private String name;
 
-    /** информация о том, в какую игру сколько часов было сыграно
-    ключ - игра
-    значение - суммарное количество часов игры в эту игру */
+    public Player(String name) {
+        this.name = name;
+    }
+
+    /**
+     * информация о том, в какую игру сколько часов было сыграно
+     * ключ - игра
+     * значение - суммарное количество часов игры в эту игру
+     */
     private Map<Game, Integer> playedTime = new HashMap<>();
 
 
@@ -39,31 +45,47 @@ public class Player {
     public int play(Game game, int hours) {
         game.getStore().addPlayTime(name, hours);
         if (playedTime.containsKey(game)) {
-            playedTime.put(game, playedTime.get(game));
+            int currentTime = playedTime.get(game);
+            int newTime = currentTime + hours;
+            hours = newTime;
+            playedTime.put(game, hours);
         } else {
             RuntimeException e = new RuntimeException("Игра не была  установлена " + game);
             throw e;
         }
-        return hours;
+        return playedTime.get(game);
     }
 
-    /** Метод принимает жанр игры (одно из полей объекта игры) и
-     суммирует время, проигранное во все игры этого жанра этим игроком */
+    /**
+     * Метод принимает жанр игры (одно из полей объекта игры) и
+     * суммирует время, проигранное во все игры этого жанра этим игроком
+     */
     public int sumGenre(String genre) {
         int sum = 0;
         for (Game game : playedTime.keySet()) {
             if (game.getGenre().equals(genre)) {
-                sum += playedTime.get(game);
+                sum = sum + playedTime.get(game);
             } else {
-                sum = 0;
+                sum = sum;
             }
         }
         return sum;
     }
 
-    /** Метод принимает жанр и возвращает игру этого жанра, в которую играли больше всего
-     Если в игры этого жанра не играли, возвращается null */
+    /**
+     * Метод принимает жанр и возвращает игру этого жанра, в которую играли больше всего
+     * Если в игры этого жанра не играли, возвращается null
+     */
     public Game mostPlayerByGenre(String genre) {
-        return null;
+        int mostTimeByGenre = 0;
+        Game mostGame = null;
+        for (Game game : playedTime.keySet()) {
+            int playerTimeByGenre = playedTime.get(game);
+            if (playerTimeByGenre > mostTimeByGenre) {
+                mostTimeByGenre = playerTimeByGenre;
+                mostGame = game;
+                return mostGame;
+            }
+        } return mostGame;
     }
 }
