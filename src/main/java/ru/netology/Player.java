@@ -92,6 +92,6 @@ public class Player {
                 }
             }
         }
-            return mostGame;
-        }
+        return mostGame;
+    }
 }

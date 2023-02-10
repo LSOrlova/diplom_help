@@ -67,6 +67,20 @@ public class PlayerTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void shouldNotInstallGameAlreadyExist() {
+        GameStore store = new GameStore();
+        Game game = store.publishGame("Нетология Баттл Онлайн", "Аркады");
+
+
+        Player player = new Player("Igor");
+        player.installGame(game);
+
+        Game expected = game;
+        Game actual = player.installGame(game);
+        assertEquals(expected, actual);
+    }
+
 
     @Test
     public void shouldPlayReturnRunTimeException() {
@@ -105,6 +119,7 @@ public class PlayerTest {
         assertEquals(expected, actual);
 
     }
+
     @Test
     public void shouldShowMostPlayerByGenreNoPlay() {
         GameStore store = new GameStore();
@@ -117,6 +132,7 @@ public class PlayerTest {
         assertEquals(expected, actual);
 
     }
+
     @Test
     public void shouldShowMostPlayerByGenreThreeGames() {
         GameStore store = new GameStore();
