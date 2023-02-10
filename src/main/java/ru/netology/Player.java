@@ -3,9 +3,11 @@ package ru.netology;
 import java.util.HashMap;
 import java.util.Map;
 
-// БЕЗ ФИКСА
-
 public class Player {
+    public String getName() {
+        return name;
+    }
+
     private String name;
 
     public Player(String name) {
@@ -27,7 +29,9 @@ public class Player {
      * @return
      */
     public Game installGame(Game game) {
-        if (!playedTime.containsKey(game)) {
+        if (playedTime.containsKey(game)) {
+            getName();
+        } else {
             playedTime.put(game, 0);
         }
         return game;
@@ -80,12 +84,14 @@ public class Player {
         int mostTimeByGenre = 0;
         Game mostGame = null;
         for (Game game : playedTime.keySet()) {
-            int playerTimeByGenre = playedTime.get(game);
-            if (playerTimeByGenre > mostTimeByGenre) {
-                mostTimeByGenre = playerTimeByGenre;
-                mostGame = game;
-                return mostGame;
+            if (game.getGenre().equals(genre)) {
+                int playerTimeByGenre = playedTime.get(game);
+                if (playerTimeByGenre > mostTimeByGenre) {
+                    mostTimeByGenre = playerTimeByGenre;
+                    mostGame = game;
+                }
             }
-        } return mostGame;
-    }
+        }
+            return mostGame;
+        }
 }
